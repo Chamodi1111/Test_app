@@ -27,5 +27,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
+        export REQUIRED_SETTING="Online"
         python manage.py test
  
