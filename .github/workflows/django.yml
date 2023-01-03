@@ -18,7 +18,7 @@ env:
                                                
 jobs:
   test:
-
+    name: Testing
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -41,7 +41,7 @@ jobs:
         python manage.py test
  
   build:
-    
+    needs: test
     name: Build Image
     runs-on: ubuntu-latest
 
