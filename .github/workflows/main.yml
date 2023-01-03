@@ -31,7 +31,7 @@ jobs:
         run: cdk bootstrap aws://567282118302/us-east-1
         
       - name: CDK Synth
-        run: cdk synth
+        run: cdk synth application-load-balanced-fargate-service/cdk.json
              
       - name: cdk deploy
         run: cdk deploy
