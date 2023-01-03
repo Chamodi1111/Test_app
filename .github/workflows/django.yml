@@ -7,13 +7,13 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: testapp1234                 # set this to your Amazon ECR repository name
-  ECS_SERVICE: demo-2                # set this to your Amazon ECS service name
-  ECS_CLUSTER: appdemo                # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ./testapp1234-revision2.json     # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: testapp           # set this to the name of the container in the
+  AWS_REGION: MY_AWS_REGION                                                  # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: cdk-hnb659fds-container-assets-567282118302-us-east-1      # set this to your Amazon ECR repository name
+  ECS_SERVICE: ECSServiceStack-amazonecssampleService537E3215-5OodPYf1JwQd   # set this to your Amazon ECS service name
+  ECS_CLUSTER: service-cluster                                               # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: .aws/ECSServiceStackamazonecssampleTaskDef499685C5-revision5.json     # set this to the path to your Amazon ECS task definition
+                                                                             # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: web                          # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
                                                
 jobs:
@@ -66,7 +66,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: testapp1234
+        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         IMAGE_TAG: python_image
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
