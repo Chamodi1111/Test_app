@@ -29,8 +29,7 @@ jobs:
         
       - name: CDK Synth
         run: cdk synth
-        working-directory: CDK-AWS
-        
+             
       - name: cdk deploy
         run: cdk deploy
-        working-directory: CDK-AWS
+        
