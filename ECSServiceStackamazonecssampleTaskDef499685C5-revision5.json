@@ -10,7 +10,8 @@
                 {
                     "containerPort": 8000,
                     "hostPort": 8000,
-                    "protocol": "tcp"
+                    "protocol": "tcp",
+                    "appProtocol": "http"
                 }
             ],
             "essential": true,
@@ -77,8 +78,8 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "512",
-    "memory": "2048",
+    "cpu": "1024",
+    "memory": "3072",
     "registeredAt": "2023-01-03T08:43:52.545Z",
     "registeredBy": "arn:aws:sts::567282118302:assumed-role/cdk-hnb659fds-cfn-exec-role-567282118302-us-east-1/AWSCloudFormation",
     "tags": []
