@@ -1,0 +1,292 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "ECSServiceStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ECSServiceStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ECSServiceStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "ECSServiceStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ec6cded7dbd5cdf62834c290128fb31d84b663247e6d37bdfeb0bc2517ac2354.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ECSServiceStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ECSServiceStack.assets"
+      ],
+      "metadata": {
+        "/ECSServiceStack/SkeletonVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpc23B0CF08"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1SubnetF29702D1"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1RouteTable81DA0A43"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1RouteTableAssociation4697094E"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1DefaultRoute6AF18822"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1EIP5AB34216"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet1NATGateway55D45EB7"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet2Subnet9F55D429"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet2RouteTable197BF10F"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet2RouteTableAssociationAED74F88"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/publicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcpublicSubnet2DefaultRoute27A68167"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet1Subnet46B8A012"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet1RouteTable7FE59940"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet1RouteTableAssociation1E6F6EF7"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet1DefaultRoute4EEFF3E2"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet2Subnet6F4E3F0A"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet2RouteTableC1688397"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet2RouteTableAssociationABDA26AB"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/applicationSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcapplicationSubnet2DefaultRoute620DB042"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcIGWD8E29752"
+          }
+        ],
+        "/ECSServiceStack/SkeletonVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SkeletonVpcVPCGW0F75CC52"
+          }
+        ],
+        "/ECSServiceStack/service-cluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "serviceclusterE605E6B1"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLBF8E7DBED"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLBSecurityGroup55736652"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LB/SecurityGroup/to ECSServiceStackamazonecssampleServiceSecurityGroupDEB3DD7C:8000": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLBSecurityGrouptoECSServiceStackamazonecssampleServiceSecurityGroupDEB3DD7C8000429614C1"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLBPublicListenerDAC9D871"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLBPublicListenerECSGroup65D63633"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleLoadBalancerDNS70F5FECA"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleServiceURLE3D5AC2F"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleTaskDefTaskRole527DD07B"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleTaskDefF37D3192"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/TaskDef/web/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleTaskDefwebLogGroup910AB31A"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleTaskDefExecutionRoleF904F4BB"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleTaskDefExecutionRoleDefaultPolicyAFBFE89A"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleService537E3215"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleServiceSecurityGroup120A1640"
+          }
+        ],
+        "/ECSServiceStack/amazon-ecs-sample/Service/SecurityGroup/from ECSServiceStackamazonecssampleLBSecurityGroup1B861B2C:8000": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "amazonecssampleServiceSecurityGroupfromECSServiceStackamazonecssampleLBSecurityGroup1B861B2C8000A0B54DCC"
+          }
+        ],
+        "/ECSServiceStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/ECSServiceStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/ECSServiceStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/ECSServiceStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "ECSServiceStack"
+    }
+  }
+}
