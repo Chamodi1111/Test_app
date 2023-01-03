@@ -29,7 +29,10 @@ jobs:
         
       - name: CDK Boostrap
         run: cdk bootstrap aws://567282118302/us-east-1        
-             
+ 
+      - name: cdk synth
+        run: cdk synth --app cdk.out
+        
       - name: cdk deploy
         run: cdk deploy
         
