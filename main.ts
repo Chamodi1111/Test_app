@@ -36,7 +36,7 @@ export class ECSServiceStack extends cdk.Stack {
 
      // Create a SG for a web server
     const webserverSG = new ec2.SecurityGroup(this, 'web-server-sg', {
-      vpc,
+      vpc: vpc,
       allowAllOutbound: true,
       description: 'security group for a web server',
     });
