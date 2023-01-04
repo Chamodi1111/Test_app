@@ -34,12 +34,32 @@ export class ECSServiceStack extends cdk.Stack {
       vpc: vpc,
     }); 
 
+     // Create a SG for a web server
+    const webserverSG = new ec2.SecurityGroup(this, 'web-server-sg', {
+      vpc,
+      allowAllOutbound: true,
+      description: 'security group for a web server',
+    });
+
+    webserverSG.addIngressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(80),
+      'allow SSH access from anywhere',
+    );
+
+    webserverSG.addIngressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(8000),
+      'allow HTTP traffic from anywhere',
+    );   
+    
     // Create a Fargate container image
     const image = ecs.ContainerImage.fromRegistry('amazon/amazon-ecs-sample');
 
     // Create higher level construct containing the Fargate service with a load balancer
     new ecspatterns.ApplicationLoadBalancedFargateService(this, 'amazon-ecs-sample', {
       cluster,
+      securityGroups: [webserverSG],
       circuitBreaker: {
         rollback: true,
       },
