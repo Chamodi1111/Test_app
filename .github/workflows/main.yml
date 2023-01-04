@@ -28,7 +28,7 @@ jobs:
         run: 'sudo npm install -g aws-cdk'
 
       - name: cdk synth
-        run: cdk synth --app cdk.out
+        run: cdk synth --app Infra/cdk.out
         
       - name: CDK Boostrap
         run: cdk bootstrap aws://567282118302/us-east-1        
