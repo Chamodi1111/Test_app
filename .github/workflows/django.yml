@@ -69,6 +69,7 @@ jobs:
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     outputs:
       Imageout: ${{ steps.build-image.outputs.image }}
+      testout: 'testapp'
   
   build-ECS-dev:
     environment: 
@@ -79,9 +80,7 @@ jobs:
     steps: 
     - run: 
        echo ${{ needs.build-push-image-dev.outputs.Imageout }}
-       echo ${{ needs.build-push-image-dev.build-image.outputs.Imageout }}
-       echo ${{ needs.build-push-image-dev.outputs.testapp }}
-       echo ${{ needs.build-image.outputs.Imageout }}
+       echo ${{ needs.build-push-image-dev.outputs.testout }}
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
