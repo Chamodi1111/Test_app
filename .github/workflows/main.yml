@@ -1,4 +1,4 @@
-name: Deploy AWS CDK new
+name: Deploy AWS CDK
 
 on:
   push:
