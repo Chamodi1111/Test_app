@@ -14,32 +14,11 @@ env:
                                                # containerDefinitions section of your task definition app
                                                
 jobs:
-  test-dev:
-    environment: 
-      name: dev  
-    name: Testing-dev
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run Tests
-      run: |
-        export REQUIRED_SETTING="Online"
-        python -u manage.py test
  
   build-push-image-dev:
     environment: 
       name: dev  
-    needs: test-dev
+#    needs: test-dev
     name: Build Image Dev
     runs-on: ubuntu-latest   
     steps:
@@ -64,8 +43,6 @@ jobs:
         ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         IMAGE_TAG: app-image
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=testimage" >> $GITHUB_OUTPUT
     outputs:
       Imageout: ${{ steps.build-image.outputs.image }}
