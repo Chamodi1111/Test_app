@@ -40,7 +40,7 @@ export class ECSServiceStack extends cdk.Stack {
       allowAllOutbound: true,
       description: 'security group for a web server',
     });
-    webserverSG.node.addDependency(vpc);
+//    webserverSG.node.addDependency(vpc);
     webserverSG.addIngressRule(
       ec2.Peer.anyIpv4(),
       ec2.Port.tcp(80),
