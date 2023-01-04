@@ -46,7 +46,7 @@ jobs:
   Build:
     needs: Test
     name: Build Image
-    uses: Test_app/blob/main/.github/workflows/template/deploy/action.yml@main
+    uses: Test_app/.github/workflows/template/deploy/action.yml@main
     with:
         ref: ${{ github.event.workflow_run.head_branch }}
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
