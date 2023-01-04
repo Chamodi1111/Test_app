@@ -42,16 +42,13 @@ jobs:
         export REQUIRED_SETTING="Online"
         python manage.py test
  
-  build-dev:
+  build-push-image-dev:
     environment: 
       name: dev  
     needs: test-dev
-    name: Build Image
-    runs-on: ubuntu-latest
-
-   
+    name: Build Image Dev
+    runs-on: ubuntu-latest   
     steps:
-
     - name: Check out code
       uses: actions/checkout@v2
     
@@ -76,7 +73,14 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-          
+  
+  build-ECS-dev:
+    environment: 
+      name: dev  
+    needs: build-push-image-dev
+    name: Build ECS dev
+    runs-on: ubuntu-latest   
+    steps: 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -93,41 +97,13 @@ jobs:
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true       
  
-  build-prod:
+  build-ECR:
     environment: 
       name: prod  
-    needs: build-dev
-    name: Build Image Prod
-    runs-on: ubuntu-latest
-
-   
+    needs: build-ECS-dev
+    name: Build ECS Prod
+    runs-on: ubuntu-latest 
     steps:
-
-    - name: Check out code
-      uses: actions/checkout@v2
-    
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
-
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-          
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
