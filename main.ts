@@ -40,7 +40,7 @@ export class ECSServiceStack extends cdk.Stack {
       allowAllOutbound: true,
       description: 'security group for a web server',
     });
-//    webserverSG.node.addDependency(vpc);
+    webserverSG.node.addDependency(vpc);
     webserverSG.addIngressRule(
       ec2.Peer.anyIpv4(),
       ec2.Port.tcp(80),
@@ -57,7 +57,7 @@ export class ECSServiceStack extends cdk.Stack {
     const image = ecs.ContainerImage.fromRegistry('amazon/amazon-ecs-sample');
 
     // Create higher level construct containing the Fargate service with a load balancer
-    new ecspatterns.ApplicationLoadBalancedFargateService(this, 'amazon-ecs-sample', {
+    const loadbalancerService = new ecspatterns.ApplicationLoadBalancedFargateService(this, 'amazon-ecs-sample', {
       cluster,
       securityGroups: [webserverSG],     
       circuitBreaker: {
@@ -74,7 +74,9 @@ export class ECSServiceStack extends cdk.Stack {
           logRetention: logs.RetentionDays.ONE_YEAR,
         }),
       },
-    }).node.addDependency(webserverSG);
+    });
+ //   loadbalancerService.node.addDependency(webserverSG);  
+    loadbalancerService.loadBalancer.addSecurityGroup(webserverSG);
     
   }
 }
