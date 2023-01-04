@@ -9,9 +9,9 @@ on:
 env:
   AWS_REGION: MY_AWS_REGION                                                  # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: cdk-hnb659fds-container-assets-567282118302-us-east-1      # set this to your Amazon ECR repository name
-  ECS_SERVICE: ECSServiceStack-amazonecssampleService537E3215-pEsy1kSxZ5h4                                                   # set this to your Amazon ECS service name
+  ECS_SERVICE: App-CDK-amazonecssampleService537E3215-TDRDUzqw8Pqt                                                   # set this to your Amazon ECS service name
   ECS_CLUSTER: service-cluster                                               # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ./ECSServiceStackamazonecssampleTaskDef499685C5-revision5.json     # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: ./AppCDKamazonecssampleTaskDefBE215A4D-revision3.json     # set this to the path to your Amazon ECS task definition
                                                                              # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: web                          # set this to the name of the container in the
                                                # containerDefinitions section of your task definitio
@@ -22,17 +22,13 @@ jobs:
       name: dev  
     name: Testing-dev
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.9]
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -80,7 +76,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
+        image: app-image-dev
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -103,7 +99,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.build-image.outputs.image }}
+        image: app-image-prod
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
