@@ -59,7 +59,7 @@ export class ECSServiceStack extends cdk.Stack {
     // Create higher level construct containing the Fargate service with a load balancer
     new ecspatterns.ApplicationLoadBalancedFargateService(this, 'amazon-ecs-sample', {
       cluster,
-      securityGroups: [webserverSG],
+      securityGroups: [webserverSG],     
       circuitBreaker: {
         rollback: true,
       },
@@ -74,10 +74,11 @@ export class ECSServiceStack extends cdk.Stack {
           logRetention: logs.RetentionDays.ONE_YEAR,
         }),
       },
-    });
+    }).node.addDependency(webserverSG);
+    
   }
 }
 
 const app = new cdk.App();
-new ECSServiceStack(app, 'ECSServiceStack');
+new ECSServiceStack(app, 'App-CDK');
 app.synth();
