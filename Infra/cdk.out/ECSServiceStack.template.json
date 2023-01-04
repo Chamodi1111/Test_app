@@ -562,6 +562,7 @@
               "Principal": {
                 "Service": "ecs-tasks.amazonaws.com"
               }
+            }
           ],
           "Version": "2012-10-17"
         }

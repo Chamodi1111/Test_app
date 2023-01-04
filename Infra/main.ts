@@ -25,8 +25,8 @@ export class ECSServiceStack extends cdk.Stack {
           subnetType: ec2.SubnetType.PRIVATE_WITH_NAT,
         },
       ],
-    });
-       
+    });    
+
     // Create an ECS cluster
     const cluster = new ecs.Cluster(this, 'service-cluster', {
       clusterName: 'service-cluster',
