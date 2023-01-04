@@ -54,7 +54,7 @@ export class ECSServiceStack extends cdk.Stack {
     );   
     
     // Create a Fargate container image
-    const image = ecs.ContainerImage.fromRegistry('567282118302.dkr.ecr.us-east-1.amazonaws.com/testapp1234:python_image');
+    const image = ecs.ContainerImage.fromRegistry('567282118302.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-567282118302-us-east-1:app_image');
 
     // Create higher level construct containing the Fargate service with a load balancer
     const loadbalancerService = new ecspatterns.ApplicationLoadBalancedFargateService(this, 'amazon-ecs-sample', {
