@@ -14,12 +14,13 @@ env:
   ECS_TASK_DEFINITION: ./ECSServiceStackamazonecssampleTaskDef499685C5-revision5.json     # set this to the path to your Amazon ECS task definition
                                                                              # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: web                          # set this to the name of the container in the
-  ENVIRONMENT: dev  # containerDefinitions section of your task definitio
+  # containerDefinitions section of your task definitio
 
-environment: ${{ env.ENVIRONMENT }}
 
 jobs:
   Test:
+    environment: 
+      name: dev
     name: Testing
     runs-on: ubuntu-latest
     strategy:
@@ -47,9 +48,7 @@ jobs:
     name: Build Image
     runs-on: ubuntu-latest
 
-   
     steps:
-
     - name: Check out code
       uses: actions/checkout@v2
     
@@ -80,4 +79,3 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
-	   
