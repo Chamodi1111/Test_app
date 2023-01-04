@@ -43,7 +43,7 @@ jobs:
         ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         IMAGE_TAG: app-image
       run: |
-        echo "image=$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        echo "image=::add-mask::$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
     outputs:
       Imageout: ${{ steps.build-image.outputs.image }}
       testout: 'testapp'
