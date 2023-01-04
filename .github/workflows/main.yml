@@ -26,12 +26,12 @@ jobs:
         
       - name: Install AWS CDK
         run: 'sudo npm install -g aws-cdk'
+
+      - name: cdk synth
+        run: cdk synth --app cdk.out
         
       - name: CDK Boostrap
         run: cdk bootstrap aws://567282118302/us-east-1        
- 
-      - name: cdk synth
-        run: cdk synth --app cdk.out
         
       - name: cdk deploy
         run: cdk deploy --require-approval never
