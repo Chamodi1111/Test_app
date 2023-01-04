@@ -55,7 +55,7 @@ jobs:
         ref: ${{ github.event.workflow_run.head_branch }}
     
     - name: Configure AWS credentials
-      uses: "./.github/template/deploy/action.yml" 
+      uses: "./.github/workflows/template/deploy/action.yml" 
 
     - name: Login to Amazon ECR
       uses: "./.github/template/deploy/action.yml"
