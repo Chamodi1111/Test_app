@@ -34,4 +34,4 @@ jobs:
         run: cdk bootstrap aws://567282118302/us-east-1        
         
       - name: cdk deploy
-        run: cdk deploy --app Infra/cdk.json --require-approval never
+        run: cdk deploy --require-approval never
