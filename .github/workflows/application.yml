@@ -11,7 +11,7 @@ env:
   ECS_TASK_DEFINITION: ./task-definition.json                                # set this to the path to your Amazon ECS task definition
   ECS_TASK_DEFINITION_PROD: ./task-definition-prod.json                      # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: web                                                        # set this to the name of the container in the
-  ECS_SERVICE_PROD: app-service-prod
+  ECS_SERVICE_PROD: app-serivce-prod
   ECS_CLUSTER_PROD: app-cluster-prod
   CONTAINER_NAME_PROD: web-prod
                                                
