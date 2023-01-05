@@ -3,6 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ecspatterns from 'aws-cdk-lib/aws-ecs-patterns';
 import * as logs from 'aws-cdk-lib/aws-logs';
+import * as elasticloadbalancingv2_targets from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
 
 export class ECSServiceStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -34,11 +35,8 @@ export class ECSServiceStack extends cdk.Stack {
       vpc: vpc,
     }); 
 
-    const tg1 = new elbv2.ApplicationTargetGroup(this, 'TG1', {
-      targetType: elbv2.TargetType.IP,
-      port: 8000,
-      vpc: vpc,
-});
+    // create IP target group
+    const ipTarget = new elasticloadbalancingv2_targets.IpTarget('ipAddress', 8000,'availabilityZone'); 
     
     // Create a Fargate container image
     const image = ecs.ContainerImage.fromRegistry('567282118302.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-567282118302-us-east-1:app_image');
@@ -61,7 +59,7 @@ export class ECSServiceStack extends cdk.Stack {
         }),
       },
     });
-    loadbalancerService.loadBalancer.ApplicationTargetGroup(tg1);
+    loadbalancerService.loadBalancer.ApplicationTargetGroup(ipTarget);
     
   }
 }
