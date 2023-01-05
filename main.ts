@@ -34,6 +34,11 @@ export class ECSServiceStack extends cdk.Stack {
       vpc: vpc,
     }); 
 
+    const tg1 = new elbv2.ApplicationTargetGroup(this, 'TG1', {
+      targetType: elbv2.TargetType.IP,
+      port: 8000,
+      vpc: vpc,
+});
     
     // Create a Fargate container image
     const image = ecs.ContainerImage.fromRegistry('567282118302.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-567282118302-us-east-1:app_image');
@@ -56,6 +61,7 @@ export class ECSServiceStack extends cdk.Stack {
         }),
       },
     });
+    loadbalancerService.loadBalancer.ApplicationTargetGroup(tg1);
     
   }
 }
