@@ -103,6 +103,10 @@ jobs:
     - name: Download task definition
       run: |
         aws ecs describe-task-definition --task-definition app-task-definition-prod --query taskDefinition > task-definition-prod.json
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
         
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
