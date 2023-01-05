@@ -6,9 +6,9 @@ on:
 env:
   AWS_REGION: MY_AWS_REGION                                                  # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: cdk-hnb659fds-container-assets-567282118302-us-east-1      # set this to your Amazon ECR repository name
-  ECS_SERVICE: App-CDK-amazonecssampleService537E3215-TDRDUzqw8Pqt                                                   # set this to your Amazon ECS service name
-  ECS_CLUSTER: service-cluster                                               # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ./AppCDKamazonecssampleTaskDefBE215A4D-revision5.json     # set this to the path to your Amazon ECS task definition
+  ECS_SERVICE: app-service                                                   # set this to your Amazon ECS service name
+  ECS_CLUSTER: app-cluster-new                                               # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION: ./task-definition.json     # set this to the path to your Amazon ECS task definition
                                                                              # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: web                          # set this to the name of the container in the
                                                # containerDefinitions section of your task definitio
@@ -66,3 +66,15 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+      
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition app_task_definition --query taskDefinition > task-definition.json
+        
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
