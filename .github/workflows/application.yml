@@ -5,19 +5,19 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1                                                      # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: cdk-hnb659fds-container-assets-567282118302-us-east-1      # set this to your Amazon ECR repository name
-  ECS_SERVICE: app-service                                                   # set this to your Amazon ECS service name
-  ECS_CLUSTER: app-cluster-new                                               # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: ./task-definition.json                                # set this to the path to your Amazon ECS task definition
-  ECS_TASK_DEFINITION_PROD: ./task-definition-prod.json                      # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: web                                                        # set this to the name of the container in the
-  ECS_SERVICE_PROD: app-serivce-prod
-  ECS_CLUSTER_PROD: app-cluster-prod
-  CONTAINER_NAME_PROD: web-prod
+  AWS_REGION: us-east-1                                                      # set this to preferred AWS region
+  ECR_REPOSITORY: cdk-hnb659fds-container-assets-567282118302-us-east-1      # set this to Amazon ECR repository name
+  ECS_SERVICE: app-service                                                   # set this to Amazon ECS service name
+  ECS_CLUSTER: app-cluster-new                                               # set this to Amazon ECS cluster name
+  ECS_TASK_DEFINITION: ./task-definition.json                                # set this to the path to Amazon ECS downloaded task definition file
+  ECS_TASK_DEFINITION_PROD: ./task-definition-prod.json                      # production task definition file
+  CONTAINER_NAME: web                                                        # set this to the name of the container name
+  ECS_SERVICE_PROD: app-serivce-prod                                         # set this to the name of the ECS service name
+  ECS_CLUSTER_PROD: app-cluster-prod                                         # set this to the name of the ECS cluster name
+  CONTAINER_NAME_PROD: web-prod                                              # set this to the name of the container name
                                                
-jobs:
-  test-dev:
+jobs:                                                  
+  test-dev:                                           #Installing python 3.9, dependencies and run the Django application test
     environment: 
       name: dev  
     name: Testing-dev
@@ -38,11 +38,11 @@ jobs:
         export REQUIRED_SETTING="Online"
         python manage.py test
  
-  build-push-deploy-to-dev:
+  build-push-deploy-to-dev:                              # Deploy the pushed ECR container image to ECS cluster in DEV environment
     environment: 
       name: dev  
     needs: test-dev
-    name: Build Image Dev
+    name: Deploy to Dev Env
     runs-on: ubuntu-latest   
     steps:
     - name: Check out code
@@ -82,11 +82,11 @@ jobs:
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
 
-  build-push-deploy-to-prod:
+  build-push-deploy-to-prod:                          # Deploy the retagged ECR container image to ECS cluster in Prod environment
     environment: 
       name: prod  
     needs: build-push-deploy-to-dev
-    name: Build Image Prod
+    name: Deploy to Prod env
     runs-on: ubuntu-latest   
     steps:
     - name: Retag test/image:dev as test/image:staging and test/image:production
