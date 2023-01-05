@@ -35,7 +35,7 @@ jobs:
         export REQUIRED_SETTING="Online"
         python manage.py test
  
-  build-push-image-dev:
+  build-push-deploy-image-dev:
     environment: 
       name: dev  
     needs: test-dev
@@ -78,3 +78,15 @@ jobs:
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
+    
+    - name: Retag test/image:dev as test/image:staging and test/image:production
+      uses: abronin/ecr-retag-action@v1
+      with:
+          aws-region: us-east-1
+          repository: ${{ env.ECR_REPOSITORY }}
+          tag: app-image
+          new-tags: app-image-prod
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
