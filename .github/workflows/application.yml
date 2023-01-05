@@ -83,7 +83,7 @@ jobs:
 
   build-push-deploy-to-prod:
     environment: 
-      name: dev  
+      name: prod  
     needs: build-push-deploy-to-dev
     name: Build Image Prod
     runs-on: ubuntu-latest   
